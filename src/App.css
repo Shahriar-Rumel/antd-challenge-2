@@ -7,3 +7,9 @@ body {
 body {
   background-color: #f9faff;
 }
+/* .custom-table .ant-table-thead {
+  background-color: #ffffff !important;
+} */
+.custom-table .ant-table-thead .ant-table-cell {
+  background-color: white !important;
+}

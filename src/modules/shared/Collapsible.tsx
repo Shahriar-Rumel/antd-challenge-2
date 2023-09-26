@@ -37,7 +37,7 @@ const Collapsible = () => {
         <DownOutlined rotate={isActive ? 180 : 0} />
       )}
       expandIconPosition="end"
-      className="shadow-sm bg-white border-0"
+      className="shadow-primary bg-white border-0"
     />
   );
 };
