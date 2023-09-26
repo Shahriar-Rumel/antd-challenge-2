@@ -3,6 +3,7 @@ import Collapsible from '../../shared/Collapsible';
 import Input from '../../shared/Input';
 import { SearchOutlined, FilterOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import UserTable from './components/UserTable';
 
 const SearchWithFilter = () => {
   return (
@@ -28,6 +29,7 @@ const Home = (props: any) => {
           <aside className="w-[35%]">
             <Collapsible />
             <SearchWithFilter />
+            <UserTable />
           </aside>
           <div className="w-[65%]"></div>
         </div>
