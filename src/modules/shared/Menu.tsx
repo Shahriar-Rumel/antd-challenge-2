@@ -34,7 +34,8 @@ const Menu = () => {
         position: 'fixed',
         bottom: 0,
         top: 0,
-        paddingTop: '60px'
+        paddingTop: '60px',
+        zIndex: 999
       }}
     >
       {menuItems.map((item) => (

@@ -1,15 +1,23 @@
 import MainLayout from '../../layout/MainLayout';
+import Collapsible from '../../shared/Collapsible';
 
 const Home = (props: any) => {
   return (
     <MainLayout>
-      <div className={styles.wrapper}></div>
+      <div className={styles.wrapper}>
+        <div className="flex gap-6">
+          <div className="w-[35%]">
+            <Collapsible />
+          </div>
+          <div className="w-[65%]"></div>
+        </div>
+      </div>
     </MainLayout>
   );
 };
 
 const styles = {
-  wrapper: 'mx-auto py-[100px] px-[100px]  my-[100px] '
+  wrapper: 'w-[90%] ml-[100px] mx-auto my-[30px]'
 };
 
 export default Home;
