@@ -4,6 +4,7 @@ import Input from '../../shared/Input';
 import { SearchOutlined, FilterOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import UserTable from './components/UserTable';
+import UserHeader from './components/UserHeader';
 
 const SearchWithFilter = () => {
   return (
@@ -31,7 +32,9 @@ const Home = (props: any) => {
             <SearchWithFilter />
             <UserTable />
           </aside>
-          <div className="w-[65%]"></div>
+          <div className="w-[65%]">
+            <UserHeader />
+          </div>
         </div>
       </section>
     </MainLayout>

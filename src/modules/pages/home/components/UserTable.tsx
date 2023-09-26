@@ -11,27 +11,27 @@ interface DataType {
 const columns: ColumnsType<DataType> = [
   {
     title: (
-      <div className="grid grid-cols-3">
+      <div className="flex items-center gap-2 justify-between">
         <h1 className="text-blue-500 inline-flex items-center">
           Qualified{' '}
           <span className="bg-blue-100 ml-2 text-blue-500 text-[12px] px-1 py-1 rounded-full">
             324
           </span>{' '}
-          <Divider
-            type="vertical"
-            className=" ml-4 w-[2px] h-[20px] bg-gray-200"
-          />
         </h1>
+        <Divider
+          type="vertical"
+          className=" ml-4 w-[2px] h-[20px] bg-gray-200"
+        />
         <h1 className="inline-flex items-center">
           Task{' '}
           <span className="bg-slate-100 ml-2 slate-blue-500 text-[12px] px-1 py-1 rounded-full">
             324
           </span>
-          <Divider
-            type="vertical"
-            className="ml-4 w-[2px] h-[20px] bg-gray-200"
-          />
         </h1>
+        <Divider
+          type="vertical"
+          className="ml-4 w-[2px] h-[20px] bg-gray-200"
+        />
         <h1 className="inline-flex items-center">
           Disqualified
           <span className="bg-slate-100 ml-2 text-slate-500 text-[12px] px-1 py-1 rounded-full">
@@ -49,13 +49,12 @@ for (let i = 0; i < 10; i++) {
   data.push({
     key: i,
     name: (
-      <div className="flex items-center gap-4 hover:bg-blue-50 px-4 py-2 rounded-lg">
-        <div>
-          <div className="w-[70px] h-[70px] flex items-center justify-center bg-slate-50 text-slate-400 font-semibold rounded-full text-[20px]">
-            FR
-          </div>
+      <div className="flex items-center gap-4 hover:bg-blue-50 px-2 py-2 rounded-lg">
+        <div className="w-[60px] h-[60px] flex items-center justify-center bg-slate-50 text-slate-400 font-semibold rounded-full text-[20px]">
+          FR
         </div>
-        <div>
+
+        <div className="w-[75%]">
           <h2 className="text-[14px] font-bold">Frances R. Kostka</h2>
           <p className="text-[12px] font-bold my-2">Saudi Arabia</p>
           <p className="text-[14px] font-regular">
@@ -65,14 +64,14 @@ for (let i = 0; i < 10; i++) {
             <p className="text-[12px] text-slate-400">#top_candidate</p>
             <p className="text-[12px] text-slate-400">#top_candidate</p>
           </div>
-          <div className="flex gap- mt-4">
-            <p className="text-slate-600 bg-green-50  rounded-full px-3 py-1  text-[12px] font-medium">
+          <div className="flex gap-2 mt-4">
+            <p className="text-slate-600 bg-green-50  rounded-full px-3 py-1  text-[10px] font-semibold">
               New York
             </p>
-            <p className="text-slate-600 bg-green-50 rounded-full px-3 py-1  text-[12px] font-medium">
+            <p className="text-slate-600 bg-green-50 rounded-full px-3 py-1  text-[10px] font-semibold">
               Marketing
             </p>
-            <p className="text-slate-600 bg-green-50 rounded-full  px-3 py-1  text-[12px] font-medium">
+            <p className="text-slate-600 bg-green-50 rounded-full  px-3 py-1  text-[10px] font-semibold">
               London
             </p>
           </div>
