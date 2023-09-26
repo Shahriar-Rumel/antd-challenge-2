@@ -1,9 +1,5 @@
 module.exports = {
-  content: [
-    './src/**/*.{js,jsx,ts,tsx}',
-    './node_modules/tailwind-datepicker-react/dist/**/*.js'
-  ],
-  plugins: [require('flowbite/plugin')],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       backgroundImage: (theme) => ({
@@ -24,22 +20,6 @@ module.exports = {
         lg: '976px',
         xl: '1240px',
         '2xl': '1440px'
-      },
-      colors: {
-        brand: '#367BF5',
-        yellow: '#F3AA18',
-        green: '#2FA84F',
-        orange: '#FA5D50',
-        red: '#FA5050',
-        blue: '#367BF5',
-        teal: '#069697',
-        'yellow-light': '#FCF3D7',
-        'green-light': '#DCF7E3',
-        'red-light': '#FEE4E2',
-        'blue-light': '#E6EFFF',
-        'teal-light': '#DAF5F2',
-        dark: '#000000',
-        white: '#FFFFFF'
       },
       boxShadow: {
         primary: '0px 4px 4px 4px rgba(236, 33, 38, 0.05)',
