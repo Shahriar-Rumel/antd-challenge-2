@@ -1,38 +1,51 @@
 import React, { useState } from 'react';
-import { Table, Tag } from 'antd';
+import { Space, Table, Tag, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Divider from '../../../shared/Divider';
 
+const { Text } = Typography;
 interface DataType {
   key: React.Key;
   name: any;
 }
 
+const TableHeader = ({
+  label,
+  count,
+  active
+}: {
+  label: string;
+  count: number;
+  active?: boolean;
+}) => {
+  return (
+    <Text
+      className={`${
+        active ? 'text-blue-500 font-semibold' : 'font-regular text-slate-800'
+      } inline-flex items-center text-[12px]`}
+    >
+      {label}
+      <span
+        className={`bg-blue-100 ${
+          active ? 'bg-blue-100 text-blue-500' : 'bg-slate-100 text-slate-500'
+        } ml-2  text-[10px] px-1 py-1 rounded-full`}
+      >
+        {count}
+      </span>
+    </Text>
+  );
+};
+
 const columns: ColumnsType<DataType> = [
   {
     title: (
-      <div className="flex items-center gap-2 justify-between">
-        <h1 className="text-blue-500 inline-flex items-center">
-          Qualified{' '}
-          <span className="bg-blue-100 ml-2 text-blue-500 text-[12px] px-1 py-1 rounded-full">
-            324
-          </span>{' '}
-        </h1>
+      <Space className="flex items-center gap-2 justify-between">
+        <TableHeader label="Qualified" count={324} active={true} />
         <Divider />
-        <h1 className="inline-flex items-center">
-          Task{' '}
-          <span className="bg-slate-100 ml-2 slate-blue-500 text-[12px] px-1 py-1 rounded-full">
-            324
-          </span>
-        </h1>
+        <TableHeader label="Task" count={324} />
         <Divider />
-        <h1 className="inline-flex items-center">
-          Disqualified
-          <span className="bg-slate-100 ml-2 text-slate-500 text-[12px] px-1 py-1 rounded-full">
-            324
-          </span>
-        </h1>
-      </div>
+        <TableHeader label="Disqualified" count={324} />
+      </Space>
     ),
     dataIndex: 'name'
   }
@@ -43,22 +56,32 @@ for (let i = 0; i < 10; i++) {
   data.push({
     key: i,
     name: (
-      <div className="flex items-center gap-4 hover:bg-blue-50 px-2 py-2 rounded-lg">
-        <div className="w-[60px] h-[60px] flex items-center justify-center bg-slate-50 text-slate-400 font-semibold rounded-full text-[20px]">
+      <Space className="items-center gap-4 hover:bg-blue-50 px-2 py-2 rounded-lg">
+        <Space className="w-[60px] h-[60px] flex items-center justify-center bg-slate-50 text-slate-400 font-semibold rounded-full text-[20px]">
           FR
-        </div>
+        </Space>
 
-        <div className="w-[80%]">
-          <h2 className="text-[14px] font-bold">Frances R. Kostka</h2>
-          <p className="text-[12px] font-bold my-2">Saudi Arabia</p>
-          <p className="text-[14px] font-regular">
+        <Space direction="vertical" className="w-[100%]">
+          <Text className="text-[14px] font-bold">Frances R. Kostka</Text>
+          <Text className="text-[10px] font-bold my-1">Saudi Arabia</Text>
+          <Text className="text-[10px] font-regular">
             Bachelor in Information Technology and Cyber Security (2023-2023)
-          </p>
-          <div className="flex gap-2 mt-2">
-            <p className="text-[12px] text-slate-400">#top_candidate</p>
-            <p className="text-[12px] text-slate-400">#top_candidate</p>
-          </div>
-          <div className="flex gap-2 mt-4">
+          </Text>
+          <Space className="gap-2">
+            <Tag
+              bordered={false}
+              className="text-[8px] bg-transparent text-slate-400"
+            >
+              #top_candidate
+            </Tag>
+            <Tag
+              bordered={false}
+              className="text-[8px] bg-transparent text-slate-400"
+            >
+              #top_candidate
+            </Tag>
+          </Space>
+          <Space className="flex gap-2 mt-1">
             <Tag bordered={false} className="bg-slate-200 text-[8px]">
               New York
             </Tag>
@@ -68,9 +91,9 @@ for (let i = 0; i < 10; i++) {
             <Tag bordered={false} className="bg-slate-200 text-[8px]">
               London
             </Tag>
-          </div>
-        </div>
-      </div>
+          </Space>
+        </Space>
+      </Space>
     )
   });
 }
