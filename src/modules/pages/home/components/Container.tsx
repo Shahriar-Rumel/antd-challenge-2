@@ -1,6 +1,7 @@
 import { Space, Tabs, TabsProps, Typography } from 'antd';
 import React from 'react';
 import ProfileTab from './ProfileTab';
+import VideoTab from './VideoTab';
 
 const TabLabel = (props: any) => {
   return (
@@ -17,27 +18,27 @@ const items: TabsProps['items'] = [
   {
     key: '2',
     label: <TabLabel label="Video" />,
-    children: 'Content of Tab Pane 2'
+    children: <VideoTab label="Video Questions" />
   },
   {
     key: '3',
     label: <TabLabel label="Evaluation" />,
-    children: 'Content of Tab Pane 3'
+    children: <VideoTab label="Evaluation Result" />
   },
   {
     key: '4',
     label: <TabLabel label="Placement" />,
-    children: 'Content of Tab Pane 3'
+    children: <VideoTab label="Placements" />
   },
   {
     key: '5',
     label: <TabLabel label="Compliance" />,
-    children: 'Content of Tab Pane 3'
+    children: <VideoTab label="Compliance List" />
   },
   {
     key: '6',
     label: <TabLabel label="Notes" />,
-    children: 'Content of Tab Pane 3'
+    children: <VideoTab label="Notes" />
   }
 ];
 const Container = () => {
