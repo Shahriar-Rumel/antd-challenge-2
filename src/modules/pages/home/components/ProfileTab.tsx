@@ -6,118 +6,77 @@ import {
   Button,
   Popover,
   Checkbox,
-  Row,
-  Col,
-  Tabs,
   Tag
 } from 'antd';
 import { Icon } from '@iconify/react';
 import Divider from '../../../shared/Divider';
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { Fragment, useState } from 'react';
+import { useCandidate } from '../../../hooks/CandidateContext';
+import { QuestionTypes } from '../../../shared/enums/QuestionsTypes';
+import { questions } from '../../../shared/data/questions';
 
 const { Text } = Typography;
 
-enum QuestionTypes {
-  Paragraph = 'paragraph',
-  ShortAnswer = 'shortAnswer',
-  YesNo = 'yesNo',
-  DropdownSelect = 'dropdownSelect',
-  MultipleChoice = 'multipleChoice',
-  Date = 'date',
-  Number = 'number',
-  FileUpload = 'fileUpload',
-  Video = 'video'
-}
+type ContentMap = {
+  [QuestionTypes.Paragraph]: string;
+  [QuestionTypes.ShortAnswer]: string;
+  [QuestionTypes.YesNo]: boolean;
+  [QuestionTypes.DropdownSelect]: string;
+  [QuestionTypes.MultipleChoice]: string[];
+  [QuestionTypes.Date]: string;
+  [QuestionTypes.Number]: number;
+  [QuestionTypes.FileUpload]: File | null;
+  [QuestionTypes.Video]: string;
+};
 
-const personalInformation = [
-  {
-    icon: 'solar:user-circle-linear',
-    title: 'Nationality',
-    value: 'Sri Lankan'
-  },
-  {
-    icon: 'teenyicons:user-square-outline',
-    title: 'National ID',
-    value: '00000000000'
-  },
-  {
-    icon: 'ci:user-02',
-    title: 'Gender',
-    value: 'Female'
-  },
-  {
-    icon: 'ci:calendar-event',
-    title: 'Date of Birth',
-    value: '00-00-0000'
-  }
-];
+type QuestionAnswerProps = {
+  content: ContentMap[keyof ContentMap];
+  type: keyof ContentMap;
+};
 
-const educationInformation = [
-  {
-    icon: 'ph:buildings-light',
-    title: 'Bachelor in Biochemistry',
-    value: 'King Saud University',
-    country: 'Saudi Arabia',
-    duration: 'Jan 2022 - Jan 2023'
-  },
-  {
-    icon: 'ph:buildings-light',
-    title: 'Bachelor in Biochemistry',
-    value: 'King Saud University',
-    country: 'Saudi Arabia',
-    duration: 'Jan 2022 - Jan 2023'
-  }
-];
-const experienceInformation = [
-  {
-    icon: 'material-symbols:work-outline',
-    title: 'Cyber Security Intern',
-    value: 'Coop Training',
-    country: 'Saudi Arabia',
-    duration: 'Jan 2022 - Jan 2023'
-  },
-  {
-    icon: 'material-symbols:work-outline',
-    title: 'Cyber Security Intern',
-    value: 'Coop Training',
-    country: 'Saudi Arabia',
-    duration: 'Jan 2022 - Jan 2023'
-  }
-];
-const enrolledInformation = [
-  {
-    icon: 'ph:books-thin',
-    title: 'Misk Traineeship',
-    value: 'Currently At Video Task',
-    tag: 'Active'
-  },
-  {
-    icon: 'ph:books-thin',
-    title: 'Summer Internship',
-    value: 'Currently At Video Task',
-    tag: 'Disqualified'
-  },
-  {
-    icon: 'ph:books-thin',
-    title: 'XYZ Traineeship',
-    value: 'Currently At Video Task',
-    tag: 'Disqualified'
-  },
-  {
-    icon: 'ph:books-thin',
-    title: 'London Internship',
-    value: 'Currently At Video Task',
-    tag: 'Active'
-  }
+type TypeToColorMap = {
+  [key in QuestionTypes]: string;
+};
+
+type QuestionProps = {
+  content: string | string[];
+  question: string;
+  label: string;
+  type: QuestionTypes;
+};
+
+const typeToColor: TypeToColorMap = {
+  [QuestionTypes.Paragraph]: 'bg-sky-100 text-sky-500',
+  [QuestionTypes.ShortAnswer]: 'bg-yellow-100 text-yellow-500',
+  [QuestionTypes.YesNo]: 'bg-pink-100 text-pink-500',
+  [QuestionTypes.DropdownSelect]: 'bg-cyan-100 text-cyan-500',
+  [QuestionTypes.MultipleChoice]: 'bg-lime-100 text-lime-500',
+  [QuestionTypes.Date]: 'bg-orange-100 text-orange-500',
+  [QuestionTypes.Number]: 'bg-rose-100 text-rose-500',
+  [QuestionTypes.FileUpload]: 'bg-zinc-100 text-zinc-500',
+  [QuestionTypes.Video]: 'bg-blue-100 text-blue-500'
+};
+
+const options = [
+  { label: 'Paragraph', value: QuestionTypes.Paragraph },
+  { label: 'Short Answer', value: QuestionTypes.ShortAnswer },
+  { label: 'Yes/No', value: QuestionTypes.YesNo },
+  { label: 'Dropdown Select', value: QuestionTypes.DropdownSelect },
+  { label: 'Multiple Choice', value: QuestionTypes.MultipleChoice },
+  { label: 'Date', value: QuestionTypes.Date },
+  { label: 'Number', value: QuestionTypes.Number },
+  { label: 'File Upload', value: QuestionTypes.FileUpload },
+  { label: 'Video', value: QuestionTypes.Video }
 ];
 
 const ProfileInformationCard = ({ informations, showDivider }: any) => {
+  const { candidate } = useCandidate();
   return (
     <Card className="bg-white w-[100%] border-0 rounded-md px-4 py-2 mt-3">
       <Text className="text-[14px] font-semibold">Personal Information</Text>
       <Space className="grid grid-cols-2 gap-[24px] mt-6">
-        {informations.map((section: any, index: any) => (
+        {candidate?.personal?.map((section: any, index: any) => (
           <Space key={index}>
             <Space className="gap-4">
               <Space className="border-slate-100 border-[1px] rounded-md p-2">
@@ -141,10 +100,7 @@ const ProfileInformationCard = ({ informations, showDivider }: any) => {
 
 const InformationCard = ({ informations, title }: any) => {
   return (
-    <Card
-      // direction="vertical"
-      className="bg-white w-[100%] border-0 rounded-md px-4 py-2 mt-3"
-    >
+    <Card className="bg-white w-[100%] border-0 rounded-md px-4 py-2 mt-3">
       <Text className="text-[14px] font-semibold">{title}</Text>
       <Space direction="vertical" className="gap-[8px] mt-6 w-[100%]">
         {informations.map((section: any, index: any) => (
@@ -222,27 +178,13 @@ const ResumeCard = () => {
 };
 
 const Dropdown = ({ list, setList }: any) => {
-  const options = [
-    { label: 'Paragraph', value: QuestionTypes.Paragraph },
-    { label: 'Short Answer', value: QuestionTypes.ShortAnswer },
-    { label: 'Yes/No', value: QuestionTypes.YesNo },
-    { label: 'Dropdown Select', value: QuestionTypes.DropdownSelect },
-    { label: 'Multiple Choice', value: QuestionTypes.MultipleChoice },
-    { label: 'Date', value: QuestionTypes.Date },
-    { label: 'Number', value: QuestionTypes.Number },
-    { label: 'File Upload', value: QuestionTypes.FileUpload },
-    { label: 'Video', value: QuestionTypes.Video }
-  ];
-
   const onChange = (checkedValues: CheckboxValueType[]) => {
-    console.log(checkedValues);
     setList(checkedValues);
   };
-  console.log(list);
+
   return (
     <>
       <Checkbox.Group
-        // options={options}
         defaultValue={[...list]}
         onChange={onChange}
         className="w-[100%]"
@@ -261,23 +203,6 @@ const Dropdown = ({ list, setList }: any) => {
       </Checkbox.Group>
     </>
   );
-};
-
-type ContentMap = {
-  [QuestionTypes.Paragraph]: string;
-  [QuestionTypes.ShortAnswer]: string;
-  [QuestionTypes.YesNo]: boolean;
-  [QuestionTypes.DropdownSelect]: string;
-  [QuestionTypes.MultipleChoice]: string[];
-  [QuestionTypes.Date]: string;
-  [QuestionTypes.Number]: number;
-  [QuestionTypes.FileUpload]: File | null;
-  [QuestionTypes.Video]: string;
-};
-
-type QuestionAnswerProps = {
-  content: ContentMap[keyof ContentMap];
-  type: keyof ContentMap;
 };
 
 const QuestionAnswer = ({ content, type }: any) => {
@@ -352,28 +277,7 @@ const QuestionAnswer = ({ content, type }: any) => {
   }
 };
 
-type TypeToColorMap = {
-  [key in QuestionTypes]: string;
-};
-
-type QuestionProps = {
-  content: string | string[];
-  question: string;
-  label: string;
-  type: QuestionTypes;
-};
 const Question = ({ content, question, label, type }: QuestionProps) => {
-  const typeToColor: TypeToColorMap = {
-    [QuestionTypes.Paragraph]: 'bg-sky-100 text-sky-500',
-    [QuestionTypes.ShortAnswer]: 'bg-yellow-100 text-yellow-500',
-    [QuestionTypes.YesNo]: 'bg-pink-100 text-pink-500',
-    [QuestionTypes.DropdownSelect]: 'bg-cyan-100 text-cyan-500',
-    [QuestionTypes.MultipleChoice]: 'bg-lime-100 text-lime-500',
-    [QuestionTypes.Date]: 'bg-orange-100 text-orange-500',
-    [QuestionTypes.Number]: 'bg-rose-100 text-rose-500',
-    [QuestionTypes.FileUpload]: 'bg-zinc-100 text-zinc-500',
-    [QuestionTypes.Video]: 'bg-blue-100 text-blue-500'
-  };
   return (
     <Space direction="vertical" className="w-[100%] mt-6">
       <Space className="border-b-[1px] w-[96%] py-1 h-[100%] ml-[26px]">
@@ -395,72 +299,6 @@ const Question = ({ content, question, label, type }: QuestionProps) => {
     </Space>
   );
 };
-
-const questions = [
-  {
-    type: QuestionTypes.ShortAnswer,
-    label: 'Short Answer',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    type: QuestionTypes.Video,
-    label: 'Video Upload',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    type: QuestionTypes.Number,
-    label: 'Number',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    type: QuestionTypes.MultipleChoice,
-    label: 'Multiple Choice',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: ['New York', 'Los Angeles', 'California']
-  },
-  {
-    type: QuestionTypes.Paragraph,
-    label: 'Paragraph',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    type: QuestionTypes.YesNo,
-    label: 'Yes/No',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'Yes'
-  },
-  {
-    type: QuestionTypes.DropdownSelect,
-    label: 'Dropdown',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'Option 1'
-  },
-  {
-    type: QuestionTypes.Date,
-    label: 'Date',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: '2023-09-26'
-  },
-  {
-    type: QuestionTypes.FileUpload,
-    label: 'File',
-    question:
-      'What regions within Saudi Arabia are you available to pursue a traineeship opportunity? You may select multiple options that apply',
-    content: 'File.txt'
-  }
-];
 
 const AdditionalQuestionCard = () => {
   const onChange = (key: string) => {
@@ -506,18 +344,19 @@ const AdditionalQuestionCard = () => {
 };
 
 const ProfileTab = () => {
+  const { candidate } = useCandidate();
   return (
     <Space direction="vertical" className="w-[100%]">
-      <ProfileInformationCard informations={personalInformation} />
-      <InformationCard informations={educationInformation} title="Education" />
+      <ProfileInformationCard informations={candidate?.personal} />
+      <InformationCard informations={candidate?.education} title="Education" />
       <InformationCard
-        informations={experienceInformation}
+        informations={candidate?.experience}
         title="Work Experience"
       />
       <ResumeCard />
       <AdditionalQuestionCard />
       <InformationCard
-        informations={enrolledInformation}
+        informations={candidate?.enrolled}
         title="Enrolled Other Programs"
       />
     </Space>

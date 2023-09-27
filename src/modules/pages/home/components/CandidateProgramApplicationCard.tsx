@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, Space, Tag, Typography, Input, Tooltip } from 'antd';
+import { Card, Space, Tag, Typography, Input, Tooltip, Modal } from 'antd';
 import Divider from '../../../shared/Divider';
 import type { InputRef } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Icon } from '@iconify/react';
-
-const thumbnail =
-  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80';
+import { useCandidate } from '../../../hooks/CandidateContext';
 
 const CandidateProgramApplicationCard: React.FC = () => {
-  const [tags, setTags] = useState(['#top_candidate', '#marketing_june']);
+  const { candidate, setCandidate } = useCandidate();
+
+  const [tags, setTags] = useState(candidate ? [...candidate.tags] : ['empty']);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [editInputIndex, setEditInputIndex] = useState(-1);
@@ -68,35 +68,63 @@ const CandidateProgramApplicationCard: React.FC = () => {
     verticalAlign: 'top'
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Card className="border-0 shadow-primary flex items-center">
       <Space className="gap-6">
         <Space
           style={{
-            backgroundImage: `url(${thumbnail})`
+            backgroundImage: `url(${candidate?.thumbnail})`
           }}
-          className="flex bg-center bg-cover items-center justify-center h-[100px] w-[100px] bg-slate-500 rounded-full"
+          onClick={showModal}
+          className="flex bg-center cursor-pointer bg-cover items-center justify-center h-[100px] w-[100px] bg-slate-500 rounded-full"
         >
           <Icon
             icon="ion:play"
             className="text-[60px] ml-[12px] text-white opacity-70"
           />
         </Space>
+        <Modal
+          title="Candidate Video Questions"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <video
+            autoPlay={false}
+            controls
+            className="my-10"
+            src="https://rumelshahriar.com/assets/youthAward/youthAwards.mp4"
+          ></video>
+        </Modal>
         <Space direction="vertical">
           <Space className="gap-6">
             <Typography.Text className="text-[14px] font-bold">
-              Aaliyah Sanderson
+              {candidate?.name}
             </Typography.Text>
             <Space className="text-[8px]">
-              <Tag bordered={false} className="bg-slate-200 text-[8px]">
-                New York
-              </Tag>
-              <Tag bordered={false} className="bg-slate-200 text-[8px]">
-                Marketing
-              </Tag>
-              <Tag bordered={false} className="bg-slate-200 text-[8px]">
-                London
-              </Tag>
+              {candidate?.locations.map((location, index) => (
+                <Tag
+                  key={index}
+                  bordered={false}
+                  className="bg-slate-200 text-[8px]"
+                >
+                  {location}
+                </Tag>
+              ))}
             </Space>
           </Space>
 
@@ -178,9 +206,9 @@ const CandidateProgramApplicationCard: React.FC = () => {
         </Space>
         <Space
           direction="vertical"
-          className="absolute justify-between right-6 top-6 bottom-6 items-end"
+          className="absolute justify-between right-3 top-3 bottom-6 items-end"
         >
-          <Space className="shadow-secondary gap-6 px-3 py-2 rounded-full">
+          <Space className="shadow-secondary gap-6 px-3 py-1 rounded-full">
             <Typography.Text className="text-[14px] font-medium">
               Overall Score
             </Typography.Text>
