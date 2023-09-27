@@ -6,19 +6,21 @@ interface inputProps {
   placeholder: string;
   title: string;
   prefixIcon: any;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ placeholder, title, prefixIcon }: inputProps) => {
+const Input = ({ placeholder, title, prefixIcon, onChange }: inputProps) => {
   return (
     <AntdInput
       placeholder={placeholder}
       prefix={prefixIcon}
+      onChange={onChange}
       suffix={
         <Tooltip title={title}>
           <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
         </Tooltip>
       }
-      className="py-3 border-0 text-[16px] my-4 shadow-primary w-[100%]"
+      className="py-3 border-0 text-[14px] my-4 shadow-primary w-[100%]"
     />
   );
 };
