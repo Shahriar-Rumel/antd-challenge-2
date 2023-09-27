@@ -23,7 +23,7 @@ module.exports = {
       },
       boxShadow: {
         primary: '0px 4px 25px 0px rgba(141, 141, 141, 0.05)',
-        secondary: '0px 2px 4px 4px rgba(236, 33, 38, 0.05)'
+        secondary: '0px 4px 25px 0px rgba(29, 78, 216, 0.05)'
       },
       fontFamily: {
         sans: ['Roboto', 'sans-sherif'],
