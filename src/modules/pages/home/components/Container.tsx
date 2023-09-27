@@ -41,9 +41,7 @@ const items: TabsProps['items'] = [
   }
 ];
 const Container = () => {
-  const onChange = (key: string) => {
-    console.log(key);
-  };
+  const onChange = (key: string) => {};
 
   return (
     <div className="mt-6 w-[100%] relative">

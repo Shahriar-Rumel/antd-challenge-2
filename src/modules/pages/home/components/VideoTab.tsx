@@ -1,22 +1,21 @@
 import { Card, Empty, Space, Typography } from 'antd';
-import React from 'react';
 import Divider from '../../../shared/Divider';
-import { Icon } from '@iconify/react';
 
 const { Text } = Typography;
 
+const colors = [
+  'bg-red-500',
+  'bg-pink-500',
+  'bg-rose-500',
+  'bg-orange-500',
+  'bg-yellow-500',
+  'bg-sky-500',
+  'bg-blue-500',
+  'bg-lime-500',
+  'bg-green-500'
+];
+
 const VideoTab = ({ label, video }: any) => {
-  const colors = [
-    'bg-red-500',
-    'bg-pink-500',
-    'bg-rose-500',
-    'bg-orange-500',
-    'bg-yellow-500',
-    'bg-sky-500',
-    'bg-blue-500',
-    'bg-lime-500',
-    'bg-green-500'
-  ];
   return (
     <Card className="bg-white w-[100%] border-0 rounded-md px-4 py-2 mt-3">
       <Space direction="vertical" className="w-[100%]">
