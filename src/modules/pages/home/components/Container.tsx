@@ -1,4 +1,4 @@
-import { Tabs, TabsProps } from 'antd';
+import { Space, Tabs, TabsProps } from 'antd';
 import ProfileTab from './ProfileTab';
 import VideoTab from './VideoTab';
 
@@ -44,14 +44,14 @@ const Container = () => {
   const onChange = (key: string) => {};
 
   return (
-    <div className="mt-6 w-[100%] relative">
-      <Tabs
-        defaultActiveKey="1"
-        items={items}
-        onChange={onChange}
-        className="w-[100%]"
-      />
-    </div>
+    // <Space className="mt-6 w-[100%] bg-red-400">
+    <Tabs
+      defaultActiveKey="1"
+      items={items}
+      onChange={onChange}
+      style={{ width: '100%' }}
+    />
+    // </Space>
   );
 };
 

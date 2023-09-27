@@ -206,9 +206,9 @@ const CandidateProgramApplicationCard: React.FC = () => {
         </Space>
         <Space
           direction="vertical"
-          className="absolute justify-between right-6 top-6 bottom-6 items-end"
+          className="absolute justify-between right-3 top-3 bottom-6 items-end"
         >
-          <Space className="shadow-secondary gap-6 px-3 py-2 rounded-full">
+          <Space className="shadow-secondary gap-6 px-3 py-1 rounded-full">
             <Typography.Text className="text-[14px] font-medium">
               Overall Score
             </Typography.Text>

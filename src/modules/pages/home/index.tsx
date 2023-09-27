@@ -11,6 +11,7 @@ import CandidateProgramApplicationCard from './components/CandidateProgramApplic
 import Container from './components/Container';
 import ApplicationStage from './components/ApplicationStage';
 import { candidates } from '../../shared/data/candidates';
+import ProgramApplicationCTA from './components/ProgramApplicationCTA';
 
 const SearchWithFilter = ({
   value,
@@ -95,39 +96,41 @@ const Home = (props: any) => {
 
   return (
     <MainLayout>
-      <section className={styles.wrapper}>
-        <div className="flex gap-6">
-          <aside className="w-[35%] relative">
-            <ApplicationStage />
-            <SearchWithFilter setValue={setSearchTerm} value={searchTerm} />
-            <UserTable candidates={filteredCandidates} />
-          </aside>
-          <div className="w-[65%]">
-            {candidate ? (
-              <>
-                <CandidateProgramApplicationCard />
-                <Container />
-              </>
-            ) : (
-              <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description={
-                  <Typography.Paragraph className="w-[50%] mx-auto text-slate-400 text-center">
-                    No candidate is selected yet. Click on a candidate from the
-                    list on the left to view their information.
-                  </Typography.Paragraph>
-                }
-              />
-            )}
-          </div>
-        </div>
-      </section>
+      <Space
+        className={styles.wrapper}
+        style={{ width: `calc(100vw - 140px)` }}
+      >
+        <Space direction="vertical" className="w-[100%] relative">
+          <ApplicationStage />
+          <SearchWithFilter setValue={setSearchTerm} value={searchTerm} />
+          <UserTable candidates={filteredCandidates} />
+        </Space>
+        <Space direction="vertical" className="w-[100%]">
+          {candidate ? (
+            <Space direction="vertical" style={{ flex: 1 }}>
+              <CandidateProgramApplicationCard />
+              <Container />
+            </Space>
+          ) : (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={
+                <Typography.Paragraph className="w-[50%] mx-auto text-slate-400 text-center">
+                  No candidate is selected yet. Click on a candidate from the
+                  list on the left to view their information.
+                </Typography.Paragraph>
+              }
+            />
+          )}
+        </Space>
+        <ProgramApplicationCTA />
+      </Space>
     </MainLayout>
   );
 };
 
 const styles = {
-  wrapper: 'w-[90%] ml-[100px] mx-auto my-[30px]'
+  wrapper: 'ml-[100px]  items-start gap-6 mx-auto my-[30px]'
 };
 
 export default Home;
