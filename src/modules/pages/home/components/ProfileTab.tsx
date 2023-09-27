@@ -14,7 +14,7 @@ import {
 import { Icon } from '@iconify/react';
 import Divider from '../../../shared/Divider';
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 const { Text } = Typography;
 
@@ -148,8 +148,8 @@ const InformationCard = ({ informations, title }: any) => {
       <Text className="text-[14px] font-semibold">{title}</Text>
       <Space direction="vertical" className="gap-[8px] mt-6 w-[100%]">
         {informations.map((section: any, index: any) => (
-          <>
-            <Space key={index} className="relative w-[100%]">
+          <Fragment key={index}>
+            <Space className="relative w-[100%]">
               <Space className="gap-4">
                 <Space className="border-slate-100 border-[1px] rounded-md p-2">
                   <Icon icon={section.icon} className="text-[16px]" />
@@ -190,7 +190,7 @@ const InformationCard = ({ informations, title }: any) => {
               </Space>
             </Space>
             {index < informations.length - 1 && <AntDivider />}
-          </>
+          </Fragment>
         ))}
       </Space>
     </Card>
@@ -310,7 +310,10 @@ const QuestionAnswer = ({ content, type }: any) => {
       return (
         <Space className="gap-4">
           {content.map((item: string) => (
-            <Text className="bg-blue-50 text-cyan-700 px-2 py-1 rounded-full text-[12px]">
+            <Text
+              key={item}
+              className="bg-blue-50 text-cyan-700 px-2 py-1 rounded-full text-[12px]"
+            >
               {item}
             </Text>
           ))}
@@ -492,6 +495,7 @@ const AdditionalQuestionCard = () => {
       {filteredQuestions.map((question) => (
         <Question
           type={question.type}
+          key={question.type}
           label={question.label}
           question={question.question}
           content={question.content}
