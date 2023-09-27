@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, Space, Tag, Typography, Input, Tooltip } from 'antd';
+import { Card, Space, Tag, Typography, Input, Tooltip, Modal } from 'antd';
 import Divider from '../../../shared/Divider';
 import type { InputRef } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
@@ -71,6 +71,20 @@ const CandidateProgramApplicationCard: React.FC = () => {
     verticalAlign: 'top'
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Card className="border-0 shadow-primary flex items-center">
       <Space className="gap-6">
@@ -78,13 +92,27 @@ const CandidateProgramApplicationCard: React.FC = () => {
           style={{
             backgroundImage: `url(${candidate?.thumbnail})`
           }}
-          className="flex bg-center bg-cover items-center justify-center h-[100px] w-[100px] bg-slate-500 rounded-full"
+          onClick={showModal}
+          className="flex bg-center cursor-pointer bg-cover items-center justify-center h-[100px] w-[100px] bg-slate-500 rounded-full"
         >
           <Icon
             icon="ion:play"
             className="text-[60px] ml-[12px] text-white opacity-70"
           />
         </Space>
+        <Modal
+          title="Candidate Video Questions"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <video
+            autoPlay={false}
+            controls
+            className="my-10"
+            src="https://rumelshahriar.com/assets/youthAward/youthAwards.mp4"
+          ></video>
+        </Modal>
         <Space direction="vertical">
           <Space className="gap-6">
             <Typography.Text className="text-[14px] font-bold">

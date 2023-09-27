@@ -1,4 +1,4 @@
-import { Card, Space, Typography } from 'antd';
+import { Card, Empty, Space, Typography } from 'antd';
 import React from 'react';
 import Divider from '../../../shared/Divider';
 import { Icon } from '@iconify/react';
@@ -37,15 +37,14 @@ const VideoTab = ({ label, video }: any) => {
           {video ? (
             <video src={video} />
           ) : (
-            <Space
-              direction="vertical"
-              className="text-slate-400 items-center justify-center"
-            >
-              <Icon icon="system-uicons:box-open" className="text-[80px] " />
-              <Text className="text-slate-400 text-[12px]">
-                No Submitter or Requested video yet
-              </Text>
-            </Space>
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={
+                <Typography.Paragraph className="w-[100%] mx-auto text-slate-400 text-center">
+                  No Submitter or Requested video yet
+                </Typography.Paragraph>
+              }
+            />
           )}
         </Space>
       </Space>

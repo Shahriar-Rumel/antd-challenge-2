@@ -7,6 +7,10 @@ type Candidate = {
   tags: string[];
   locations: string[];
   thumbnail: string;
+  personal: any;
+  experience: any;
+  enrolled: any;
+  education: any;
 };
 
 const CandidateContext = createContext<{

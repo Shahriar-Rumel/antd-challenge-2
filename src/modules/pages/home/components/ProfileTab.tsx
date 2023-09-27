@@ -15,6 +15,7 @@ import { Icon } from '@iconify/react';
 import Divider from '../../../shared/Divider';
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { Fragment, useState } from 'react';
+import { useCandidate } from '../../../hooks/CandidateContext';
 
 const { Text } = Typography;
 
@@ -113,11 +114,12 @@ const enrolledInformation = [
 ];
 
 const ProfileInformationCard = ({ informations, showDivider }: any) => {
+  const { candidate } = useCandidate();
   return (
     <Card className="bg-white w-[100%] border-0 rounded-md px-4 py-2 mt-3">
       <Text className="text-[14px] font-semibold">Personal Information</Text>
       <Space className="grid grid-cols-2 gap-[24px] mt-6">
-        {informations.map((section: any, index: any) => (
+        {candidate?.personal?.map((section: any, index: any) => (
           <Space key={index}>
             <Space className="gap-4">
               <Space className="border-slate-100 border-[1px] rounded-md p-2">
@@ -506,18 +508,19 @@ const AdditionalQuestionCard = () => {
 };
 
 const ProfileTab = () => {
+  const { candidate } = useCandidate();
   return (
     <Space direction="vertical" className="w-[100%]">
       <ProfileInformationCard informations={personalInformation} />
-      <InformationCard informations={educationInformation} title="Education" />
+      <InformationCard informations={candidate?.education} title="Education" />
       <InformationCard
-        informations={experienceInformation}
+        informations={candidate?.experience}
         title="Work Experience"
       />
       <ResumeCard />
       <AdditionalQuestionCard />
       <InformationCard
-        informations={enrolledInformation}
+        informations={candidate?.enrolled}
         title="Enrolled Other Programs"
       />
     </Space>
