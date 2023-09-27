@@ -4,12 +4,15 @@ import Divider from '../../../shared/Divider';
 import type { InputRef } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Icon } from '@iconify/react';
+import { useCandidate } from '../../../hooks/CandidateContext';
 
 const thumbnail =
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80';
 
 const CandidateProgramApplicationCard: React.FC = () => {
-  const [tags, setTags] = useState(['#top_candidate', '#marketing_june']);
+  const { candidate, setCandidate } = useCandidate();
+
+  const [tags, setTags] = useState(candidate ? [...candidate.tags] : ['empty']);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [editInputIndex, setEditInputIndex] = useState(-1);
@@ -73,7 +76,7 @@ const CandidateProgramApplicationCard: React.FC = () => {
       <Space className="gap-6">
         <Space
           style={{
-            backgroundImage: `url(${thumbnail})`
+            backgroundImage: `url(${candidate?.thumbnail})`
           }}
           className="flex bg-center bg-cover items-center justify-center h-[100px] w-[100px] bg-slate-500 rounded-full"
         >
@@ -85,18 +88,18 @@ const CandidateProgramApplicationCard: React.FC = () => {
         <Space direction="vertical">
           <Space className="gap-6">
             <Typography.Text className="text-[14px] font-bold">
-              Aaliyah Sanderson
+              {candidate?.name}
             </Typography.Text>
             <Space className="text-[8px]">
-              <Tag bordered={false} className="bg-slate-200 text-[8px]">
-                New York
-              </Tag>
-              <Tag bordered={false} className="bg-slate-200 text-[8px]">
-                Marketing
-              </Tag>
-              <Tag bordered={false} className="bg-slate-200 text-[8px]">
-                London
-              </Tag>
+              {candidate?.locations.map((location, index) => (
+                <Tag
+                  key={index}
+                  bordered={false}
+                  className="bg-slate-200 text-[8px]"
+                >
+                  {location}
+                </Tag>
+              ))}
             </Space>
           </Space>
 

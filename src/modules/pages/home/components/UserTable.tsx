@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Space, Table, Tag, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Divider from '../../../shared/Divider';
+import { useCandidate } from '../../../hooks/CandidateContext';
 
 const { Text } = Typography;
 interface DataType {
@@ -58,8 +59,7 @@ const UserTable = ({ candidates }: any) => {
     })
   };
 
-  console.log(candidates);
-  // const data: DataType[] = [];
+  const { candidate, setCandidate } = useCandidate();
 
   const columns: ColumnsType<DataType> = [
     {
@@ -83,7 +83,10 @@ const UserTable = ({ candidates }: any) => {
   const data = candidates.map((candidate: any, index: number) => ({
     key: index,
     name: (
-      <Space className="items-center gap-4 hover:bg-blue-50 px-2 py-2 rounded-lg">
+      <Space
+        onClick={() => setCandidate(candidate)}
+        className="items-center w-[100%] gap-4 hover:bg-blue-50 px-2 py-2 rounded-lg"
+      >
         <Space className="w-[60px] h-[60px] flex items-center justify-center bg-slate-50 text-slate-400 font-semibold rounded-full text-[20px]">
           {candidate?.name.split(' ')[0][0] + candidate?.name.split(' ')[1][0]}
         </Space>
