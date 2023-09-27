@@ -7,7 +7,7 @@ const Divider = ({ type }: dividerProps) => {
   return (
     <AntdDivider
       type={type ? type : 'vertical'}
-      className="w-[2px] h-[20px] bg-gray-200"
+      className="w-[1px] h-[16px] bg-slate-100"
     />
   );
 };

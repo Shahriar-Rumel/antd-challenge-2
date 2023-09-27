@@ -5,6 +5,7 @@ import { SearchOutlined, FilterOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import UserTable from './components/UserTable';
 import CandidateProgramApplicationCard from './components/CandidateProgramApplicationCard';
+import Container from './components/Container';
 
 const SearchWithFilter = () => {
   return (
@@ -34,6 +35,7 @@ const Home = (props: any) => {
           </aside>
           <div className="w-[65%]">
             <CandidateProgramApplicationCard />
+            <Container />
           </div>
         </div>
       </section>
