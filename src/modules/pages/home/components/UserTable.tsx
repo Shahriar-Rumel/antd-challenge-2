@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Table, Divider } from 'antd';
+import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import type { TableRowSelection } from 'antd/es/table/interface';
+import Divider from '../../../shared/Divider';
 
 interface DataType {
   key: React.Key;
@@ -18,20 +18,14 @@ const columns: ColumnsType<DataType> = [
             324
           </span>{' '}
         </h1>
-        <Divider
-          type="vertical"
-          className=" ml-4 w-[2px] h-[20px] bg-gray-200"
-        />
+        <Divider />
         <h1 className="inline-flex items-center">
           Task{' '}
           <span className="bg-slate-100 ml-2 slate-blue-500 text-[12px] px-1 py-1 rounded-full">
             324
           </span>
         </h1>
-        <Divider
-          type="vertical"
-          className="ml-4 w-[2px] h-[20px] bg-gray-200"
-        />
+        <Divider />
         <h1 className="inline-flex items-center">
           Disqualified
           <span className="bg-slate-100 ml-2 text-slate-500 text-[12px] px-1 py-1 rounded-full">
@@ -54,7 +48,7 @@ for (let i = 0; i < 10; i++) {
           FR
         </div>
 
-        <div className="w-[75%]">
+        <div className="w-[80%]">
           <h2 className="text-[14px] font-bold">Frances R. Kostka</h2>
           <p className="text-[12px] font-bold my-2">Saudi Arabia</p>
           <p className="text-[14px] font-regular">
@@ -65,15 +59,15 @@ for (let i = 0; i < 10; i++) {
             <p className="text-[12px] text-slate-400">#top_candidate</p>
           </div>
           <div className="flex gap-2 mt-4">
-            <p className="text-slate-600 bg-green-50  rounded-full px-3 py-1  text-[10px] font-semibold">
+            <Tag bordered={false} className="bg-slate-200 text-[8px]">
               New York
-            </p>
-            <p className="text-slate-600 bg-green-50 rounded-full px-3 py-1  text-[10px] font-semibold">
+            </Tag>
+            <Tag bordered={false} className="bg-slate-200 text-[8px]">
               Marketing
-            </p>
-            <p className="text-slate-600 bg-green-50 rounded-full  px-3 py-1  text-[10px] font-semibold">
+            </Tag>
+            <Tag bordered={false} className="bg-slate-200 text-[8px]">
               London
-            </p>
+            </Tag>
           </div>
         </div>
       </div>

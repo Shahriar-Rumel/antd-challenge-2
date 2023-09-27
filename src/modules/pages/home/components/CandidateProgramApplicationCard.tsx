@@ -1,0 +1,200 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Card, Space, Tag, Typography, Input, Tooltip } from 'antd';
+import Divider from '../../../shared/Divider';
+import type { InputRef } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { Icon } from '@iconify/react';
+
+const thumbnail =
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80';
+
+const CandidateProgramApplicationCard: React.FC = () => {
+  const [tags, setTags] = useState(['#top_candidate', '#marketing_june']);
+  const [inputVisible, setInputVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [editInputIndex, setEditInputIndex] = useState(-1);
+  const [editInputValue, setEditInputValue] = useState('');
+  const inputRef = useRef<InputRef>(null);
+  const editInputRef = useRef<InputRef>(null);
+
+  useEffect(() => {
+    if (inputVisible) {
+      inputRef.current?.focus();
+    }
+  }, [inputVisible]);
+
+  useEffect(() => {
+    editInputRef.current?.focus();
+  }, [editInputValue]);
+
+  const handleClose = (removedTag: string) => {
+    const newTags = tags.filter((tag) => tag !== removedTag);
+    console.log(newTags);
+    setTags(newTags);
+  };
+
+  const showInput = () => {
+    setInputVisible(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputConfirm = () => {
+    if (inputValue && !tags.includes(inputValue)) {
+      setTags([...tags, inputValue]);
+    }
+    setInputVisible(false);
+    setInputValue('');
+  };
+
+  const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditInputValue(e.target.value);
+  };
+
+  const handleEditInputConfirm = () => {
+    const newTags = [...tags];
+    newTags[editInputIndex] = editInputValue;
+    setTags(newTags);
+    setEditInputIndex(-1);
+    setEditInputValue('');
+  };
+
+  const tagInputStyle: React.CSSProperties = {
+    width: 100,
+    height: 22,
+    marginInlineEnd: 8,
+    verticalAlign: 'top'
+  };
+
+  return (
+    <Card className="border-0 shadow-primary flex items-center">
+      <Space className="gap-6">
+        <Space
+          style={{
+            backgroundImage: `url(${thumbnail})`
+          }}
+          className="flex bg-center bg-cover items-center justify-center h-[100px] w-[100px] bg-slate-500 rounded-full"
+        >
+          <Icon
+            icon="ion:play"
+            className="text-[60px] ml-[12px] text-white opacity-70"
+          />
+        </Space>
+        <Space direction="vertical">
+          <Space className="gap-6">
+            <Typography.Text className="text-[14px] font-bold">
+              Aaliyah Sanderson
+            </Typography.Text>
+            <Space className="text-[8px]">
+              <Tag bordered={false} className="bg-slate-200 text-[8px]">
+                New York
+              </Tag>
+              <Tag bordered={false} className="bg-slate-200 text-[8px]">
+                Marketing
+              </Tag>
+              <Tag bordered={false} className="bg-slate-200 text-[8px]">
+                London
+              </Tag>
+            </Space>
+          </Space>
+
+          <Space split={<Divider type="vertical" />} className="mt-4">
+            <Typography.Text className="">Saudi Arabia</Typography.Text>
+            <Typography.Text>aaliyah@gmail.com</Typography.Text>
+            <Typography.Text>+00 000 000 000</Typography.Text>
+          </Space>
+
+          <Space size={[0, 8]} wrap className="text-[10px] mt-2">
+            {tags.map((tag, index) => {
+              if (editInputIndex === index) {
+                return (
+                  <Input
+                    ref={editInputRef}
+                    key={tag}
+                    size="small"
+                    style={tagInputStyle}
+                    className="rounded-full"
+                    value={editInputValue}
+                    onChange={handleEditInputChange}
+                    onBlur={handleEditInputConfirm}
+                    onPressEnter={handleEditInputConfirm}
+                  />
+                );
+              }
+              const isLongTag = tag.length > 20;
+              const tagElem = (
+                <Tag
+                  key={tag}
+                  closable={true}
+                  style={{ userSelect: 'none' }}
+                  className="text-[10px] border-0 rounded-full bg-slate-100"
+                  onClose={() => handleClose(tag)}
+                >
+                  <span
+                    onDoubleClick={(e) => {
+                      if (index !== 0) {
+                        setEditInputIndex(index);
+                        setEditInputValue(tag);
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+                  </span>
+                </Tag>
+              );
+              return isLongTag ? (
+                <Tooltip title={tag} key={tag}>
+                  {tagElem}
+                </Tooltip>
+              ) : (
+                tagElem
+              );
+            })}
+            {inputVisible ? (
+              <Input
+                ref={inputRef}
+                type="text"
+                size="small"
+                className="rounded-full"
+                style={tagInputStyle}
+                value={inputValue}
+                onChange={handleInputChange}
+                onBlur={handleInputConfirm}
+                onPressEnter={handleInputConfirm}
+              />
+            ) : (
+              <Tag
+                icon={<PlusCircleOutlined className="text-[12px]" />}
+                className="text-[10px] border-0"
+                onClick={showInput}
+              >
+                Add Tag
+              </Tag>
+            )}
+          </Space>
+        </Space>
+        <Space
+          direction="vertical"
+          className="absolute justify-between right-6 top-6 bottom-6 items-end"
+        >
+          <Space className="shadow-secondary gap-6 px-3 py-2 rounded-full">
+            <Typography.Text className="text-[14px] font-medium">
+              Overall Score
+            </Typography.Text>
+            <Space className="bg-slate-200 h-[30px] w-[30px] items-center justify-center text-[14px]  rounded-full">
+              7
+            </Space>
+          </Space>
+          <Typography.Text className="text-[10px] font-light">
+            Applied on 12 June 2023
+          </Typography.Text>
+        </Space>
+      </Space>
+    </Card>
+  );
+};
+
+export default CandidateProgramApplicationCard;
