@@ -1,5 +1,4 @@
-import { Space, Tabs, TabsProps, Typography } from 'antd';
-import React from 'react';
+import { Tabs, TabsProps } from 'antd';
 import ProfileTab from './ProfileTab';
 import VideoTab from './VideoTab';
 
